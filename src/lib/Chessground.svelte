@@ -3,7 +3,7 @@
 	import type { Api } from 'chessground/api';
 	import type { Config } from 'chessground/config';
 	import type { Key, PiecesDiff, Piece, Drop, NumberPair, MouchEvent } from 'chessground/types';
-    import type { DrawShape } from 'chessground/draw';
+	import type { DrawShape } from 'chessground/draw';
 	import { onMount } from 'svelte';
 
 	export let className: string = 'cg-default-style';
@@ -22,7 +22,7 @@
 	export let addPieceZIndex: boolean | undefined = undefined;
 	export let addDimensionsCssVarsTo: HTMLElement | undefined = undefined;
 	export let blockTouchScroll: boolean | undefined = true;
-    export let config = {};
+	export let config = {};
 
 	// Container for Chessground instance.
 	let container: HTMLDivElement;
@@ -71,133 +71,360 @@
 		}
 	}
 
-    $: if (fen) setConfig({ fen });
-    $: if (orientation) setConfig({ orientation })
-    $: if (turnColor) setConfig({ turnColor })
-    $: if (check) setConfig({ check })
-    $: if (lastMove) setConfig({ lastMove })
-    $: if (selected) setConfig({ selected })
-    $: if (coordinates) setConfig({ coordinates })
-    $: if (autoCastle) setConfig({ autoCastle })
-    $: if (viewOnly) setConfig({ viewOnly })
-    $: if (disableContextMenu) setConfig({ disableContextMenu })
-    $: if (addPieceZIndex) setConfig({ addPieceZIndex })
-    $: if (addDimensionsCssVarsTo) setConfig({ addDimensionsCssVarsTo })
-    $: if (blockTouchScroll) setConfig({ blockTouchScroll })
-    $: if (config) setConfig( config )
+	$: if (fen) setConfig({ fen });
+	$: if (orientation) setConfig({ orientation });
+	$: if (turnColor) setConfig({ turnColor });
+	$: if (check) setConfig({ check });
+	$: if (lastMove) setConfig({ lastMove });
+	$: if (selected) setConfig({ selected });
+	$: if (coordinates) setConfig({ coordinates });
+	$: if (autoCastle) setConfig({ autoCastle });
+	$: if (viewOnly) setConfig({ viewOnly });
+	$: if (disableContextMenu) setConfig({ disableContextMenu });
+	$: if (addPieceZIndex) setConfig({ addPieceZIndex });
+	$: if (addDimensionsCssVarsTo) setConfig({ addDimensionsCssVarsTo });
+	$: if (blockTouchScroll) setConfig({ blockTouchScroll });
+	$: if (config) setConfig(config);
 
-    /**
-     * Helper methods that make use of native Chessground functions.
-    */
+	/**
+	 * Helper methods that make use of native Chessground functions.
+	 */
 
-    // Reconfigure the instance. Accepts all config options except for
-    // viewOnly & drawable.visible. Board will be animated accordingly
-    // if animations are available.
-    export function set(config: Config) {
-        chessground.set(config);
-    }
+	// Reconfigure the instance. Accepts all config options except for
+	// viewOnly & drawable.visible. Board will be animated accordingly
+	// if animations are available.
+	export function set(config: Config) {
+		chessground.set(config);
+	}
 
-    // Read chessground state. Writing is not advised.
-    export function getState() {
-        return chessground.state;
-    }
+	// Read chessground state. Writing is not advised.
+	export function getState() {
+		return chessground.state;
+	}
 
-    // Get the position as an FEN string (only contains pieces, no flags).
-    export function getFen() {
-        return chessground.getFen();
-    }
+	// Get the position as an FEN string (only contains pieces, no flags).
+	export function getFen() {
+		return chessground.getFen();
+	}
 
-    // Change the view angle.
-    export function toggleOrientation() {
-        return chessground.toggleOrientation();
-    }
+	// Change the view angle.
+	export function toggleOrientation() {
+		return chessground.toggleOrientation();
+	}
 
-    // Perform move programatically.
-    export function move( orig: Key, dest: Key) {
-        return chessground.move(orig, dest);
-    }
+	// Perform move programatically.
+	export function move(orig: Key, dest: Key) {
+		return chessground.move(orig, dest);
+	}
 
-    // Add and/or remove arbitrary pieces on the board.
-    export function setPieces( pieces: PiecesDiff ) {
-        return chessground.setPieces(pieces);
-    }
+	// Add and/or remove arbitrary pieces on the board.
+	export function setPieces(pieces: PiecesDiff) {
+		return chessground.setPieces(pieces);
+	}
 
-    // Click a square programatically.
-    export function selectSquare(key: Key, force?: boolean) {
-        return chessground.selectSquare(key, force);
-    }
+	// Click a square programatically.
+	export function selectSquare(key: Key, force?: boolean) {
+		return chessground.selectSquare(key, force);
+	}
 
-    // Put a new piece on the board.
-    export function newPiece(piece: Piece, key: Key) {
-        return chessground.newPiece(piece, key);
-    }
+	// Put a new piece on the board.
+	export function newPiece(piece: Piece, key: Key) {
+		return chessground.newPiece(piece, key);
+	}
 
-    // Play the current premove, if any. Returns true if premove was played.
-    export function playPremove(): boolean {
-        return chessground.playPremove();
-    }
+	// Play the current premove, if any. Returns true if premove was played.
+	export function playPremove(): boolean {
+		return chessground.playPremove();
+	}
 
-    // Cancel the current premove, if any.
-    export function cancelPremove() {
-        chessground.cancelPremove();
-    }
+	// Cancel the current premove, if any.
+	export function cancelPremove() {
+		chessground.cancelPremove();
+	}
 
-    // Play the current predrop, if any. Returns true if predrop was played.
-    export function playPredrop(validate: (drop: Drop) => boolean): boolean {
-        return chessground.playPredrop(validate)
-    }
+	// Play the current predrop, if any. Returns true if predrop was played.
+	export function playPredrop(validate: (drop: Drop) => boolean): boolean {
+		return chessground.playPredrop(validate);
+	}
 
-    // Cancel the current predrop, if any.
-    export function cancelPredrop() {
-        chessground.cancelPredrop();
-    }
+	// Cancel the current predrop, if any.
+	export function cancelPredrop() {
+		chessground.cancelPredrop();
+	}
 
-    // Cancel the current move being made.
-    export function cancelMove() {
-        chessground.cancelMove();
-    }
+	// Cancel the current move being made.
+	export function cancelMove() {
+		chessground.cancelMove();
+	}
 
-    // Cancel current move and prevent further ones.
-    export function stop() {
-        chessground.stop();
-    }
+	// Cancel current move and prevent further ones.
+	export function stop() {
+		chessground.stop();
+	}
 
-    // Made squares explore (atomic chess)
-    export function explode(keys: Key[]) {
-        chessground.explode(keys);
-    }
+	// Made squares explore (atomic chess)
+	export function explode(keys: Key[]) {
+		chessground.explode(keys);
+	}
 
-    // Programmatically draw user shapes.
-    export function setShapes(shapes: DrawShape[]) {
-        chessground.setShapes(shapes);
-    }
+	// Programmatically draw user shapes.
+	export function setShapes(shapes: DrawShape[]) {
+		chessground.setShapes(shapes);
+	}
 
-    // Programmatically draw auto shapes.
-    export function setAutoShapes(shapes: DrawShape[]) {
-        chessground.setAutoShapes(shapes);
-    }
+	// Programmatically draw auto shapes.
+	export function setAutoShapes(shapes: DrawShape[]) {
+		chessground.setAutoShapes(shapes);
+	}
 
-    // Square name at DOM position (like "e4")
-    export function getKeyAtDomPos(pos: NumberPair): Key | undefined {
-        return chessground.getKeyAtDomPos(pos)
-    }
+	// Square name at DOM position (like "e4")
+	export function getKeyAtDomPos(pos: NumberPair): Key | undefined {
+		return chessground.getKeyAtDomPos(pos);
+	}
 
-    // Only useful when CSS changes the board width/height ratio (for 3D)
-    export function redrawAll() {
-        return chessground.redrawAll();
-    }
+	// Only useful when CSS changes the board width/height ratio (for 3D)
+	export function redrawAll() {
+		return chessground.redrawAll();
+	}
 
-    // For crazyhouse and board editors.
-    // type MouchEvent = Event & Partial<MouseEvent & TouchEvent>
-    export function dragNewPiece(piece: Piece, event: MouchEvent, force?: boolean) {
-        chessground.dragNewPiece(piece, event, force);
-    }
+	// For crazyhouse and board editors.
+	// type MouchEvent = Event & Partial<MouseEvent & TouchEvent>
+	export function dragNewPiece(piece: Piece, event: MouchEvent, force?: boolean) {
+		chessground.dragNewPiece(piece, event, force);
+	}
 
-    // Unbinds all events.
-    // Important for document-wide events like scroll and mousemove.
-    export function destroy() {
-        return chessground.destroy();
-    }
+	// Unbinds all events.
+	// Important for document-wide events like scroll and mousemove.
+	export function destroy() {
+		return chessground.destroy();
+	}
 </script>
 
 <div class="cg-wrap {className}" bind:this={container}></div>
+
+<style>
+	.cg-wrap {
+		box-sizing: content-box;
+		position: relative;
+		display: block;
+	}
+
+	cg-container {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		display: block;
+		top: 0;
+	}
+
+	cg-board {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		line-height: 0;
+		background-size: cover;
+	}
+
+	.cg-wrap.manipulable cg-board {
+		cursor: pointer;
+	}
+
+	cg-board square {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 12.5%;
+		height: 12.5%;
+		pointer-events: none;
+	}
+
+	cg-board square.move-dest {
+		pointer-events: auto;
+	}
+
+	cg-board square.last-move {
+		will-change: transform;
+	}
+
+	.cg-wrap piece {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 12.5%;
+		height: 12.5%;
+		background-size: cover;
+		z-index: 2;
+		will-change: transform;
+		pointer-events: none;
+	}
+
+	cg-board piece.dragging {
+		cursor: move;
+		/* !important to override z-index from 3D piece inline style */
+		z-index: 11 !important;
+	}
+
+	piece.anim {
+		z-index: 8;
+	}
+
+	piece.fading {
+		z-index: 1;
+		opacity: 0.5;
+	}
+
+	.cg-wrap piece.ghost {
+		opacity: 0.3;
+	}
+
+	.cg-wrap piece svg {
+		overflow: hidden;
+		position: relative;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		z-index: 2;
+		opacity: 0.6;
+	}
+
+	.cg-wrap cg-auto-pieces,
+	.cg-wrap .cg-shapes,
+	.cg-wrap .cg-custom-svgs {
+		overflow: visible;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+	}
+
+	.cg-wrap cg-auto-pieces {
+		z-index: 2;
+	}
+
+	.cg-wrap cg-auto-pieces piece {
+		opacity: 0.3;
+	}
+
+	.cg-wrap .cg-shapes {
+		overflow: hidden;
+		opacity: 0.6;
+		z-index: 2;
+	}
+
+	.cg-wrap .cg-custom-svgs {
+		/* over piece.anim = 8, but under piece.dragging = 11 */
+		z-index: 9;
+	}
+
+	.cg-wrap .cg-custom-svgs svg {
+		overflow: visible;
+	}
+
+	.cg-wrap coords {
+		position: absolute;
+		display: flex;
+		pointer-events: none;
+		opacity: 0.8;
+		font-family: sans-serif;
+		font-size: 9px;
+	}
+
+	.cg-wrap coords.ranks {
+		left: 4px;
+		top: -20px;
+		flex-flow: column-reverse;
+		height: 100%;
+		width: 12px;
+	}
+
+	.cg-wrap coords.ranks.black {
+		flex-flow: column;
+	}
+
+	.cg-wrap coords.ranks.left {
+		left: -15px;
+		align-items: flex-end;
+	}
+
+	.cg-wrap coords.files {
+		bottom: -4px;
+		left: 24px;
+		flex-flow: row;
+		width: 100%;
+		height: 16px;
+		text-transform: uppercase;
+		text-align: center;
+	}
+
+	.cg-wrap coords.files.black {
+		flex-flow: row-reverse;
+	}
+
+	.cg-wrap coords coord {
+		flex: 1 1 auto;
+	}
+
+	.cg-wrap coords.ranks coord {
+		transform: translateY(39%);
+	}
+
+	.cg-wrap coords.squares {
+		bottom: 0;
+		left: 0;
+		text-transform: uppercase;
+		text-align: right;
+		flex-flow: column-reverse;
+		height: 100%;
+		width: 12.5%;
+	}
+
+	.cg-wrap coords.squares.black {
+		flex-flow: column;
+	}
+
+	.cg-wrap coords.squares.left {
+		text-align: left;
+	}
+
+	.cg-wrap coords.squares coord {
+		padding: 6% 4%;
+	}
+
+	.cg-wrap coords.squares.rank2 {
+		transform: translateX(100%);
+	}
+
+	.cg-wrap coords.squares.rank3 {
+		transform: translateX(200%);
+	}
+
+	.cg-wrap coords.squares.rank4 {
+		transform: translateX(300%);
+	}
+
+	.cg-wrap coords.squares.rank5 {
+		transform: translateX(400%);
+	}
+
+	.cg-wrap coords.squares.rank6 {
+		transform: translateX(500%);
+	}
+
+	.cg-wrap coords.squares.rank7 {
+		transform: translateX(600%);
+	}
+
+	.cg-wrap coords.squares.rank8 {
+		transform: translateX(700%);
+	}
+</style>
