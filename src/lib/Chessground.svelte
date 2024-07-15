@@ -90,87 +90,111 @@
      * Helper methods that make use of native Chessground functions.
     */
 
+    // Reconfigure the instance. Accepts all config options except for
+    // viewOnly & drawable.visible. Board will be animated accordingly
+    // if animations are available.
     export function set(config: Config) {
         chessground.set(config);
     }
 
+    // Read chessground state. Writing is not advised.
     export function getState() {
         return chessground.state;
     }
 
+    // Get the position as an FEN string (only contains pieces, no flags).
     export function getFen() {
         return chessground.getFen();
     }
 
+    // Change the view angle.
     export function toggleOrientation() {
         return chessground.toggleOrientation();
     }
 
+    // Perform move programatically.
     export function move( orig: Key, dest: Key) {
         return chessground.move(orig, dest);
     }
 
+    // Add and/or remove arbitrary pieces on the board.
     export function setPieces( pieces: PiecesDiff ) {
         return chessground.setPieces(pieces);
     }
 
+    // Click a square programatically.
     export function selectSquare(key: Key, force?: boolean) {
         return chessground.selectSquare(key, force);
     }
 
+    // Put a new piece on the board.
     export function newPiece(piece: Piece, key: Key) {
         return chessground.newPiece(piece, key);
     }
 
-    export function playPremove() {
+    // Play the current premove, if any. Returns true if premove was played.
+    export function playPremove(): boolean {
         return chessground.playPremove();
     }
 
+    // Cancel the current premove, if any.
     export function cancelPremove() {
         chessground.cancelPremove();
     }
 
+    // Play the current predrop, if any. Returns true if predrop was played.
     export function playPredrop(validate: (drop: Drop) => boolean): boolean {
         return chessground.playPredrop(validate)
     }
 
+    // Cancel the current predrop, if any.
     export function cancelPredrop() {
         chessground.cancelPredrop();
     }
 
+    // Cancel the current move being made.
     export function cancelMove() {
         chessground.cancelMove();
     }
 
+    // Cancel current move and prevent further ones.
     export function stop() {
         chessground.stop();
     }
 
+    // Made squares explore (atomic chess)
     export function explode(keys: Key[]) {
         chessground.explode(keys);
     }
 
+    // Programmatically draw user shapes.
     export function setShapes(shapes: DrawShape[]) {
         chessground.setShapes(shapes);
     }
 
+    // Programmatically draw auto shapes.
     export function setAutoShapes(shapes: DrawShape[]) {
         chessground.setAutoShapes(shapes);
     }
 
-    export function getKeyAtDomPos(pos: NumberPair) {
+    // Square name at DOM position (like "e4")
+    export function getKeyAtDomPos(pos: NumberPair): Key | undefined {
         return chessground.getKeyAtDomPos(pos)
     }
 
+    // Only useful when CSS changes the board width/height ratio (for 3D)
     export function redrawAll() {
         return chessground.redrawAll();
     }
 
-    // type MouchEvent = Event & Partial<MouseEvent & TouchEvent> lol
+    // For crazyhouse and board editors.
+    // type MouchEvent = Event & Partial<MouseEvent & TouchEvent>
     export function dragNewPiece(piece: Piece, event: MouchEvent, force?: boolean) {
         chessground.dragNewPiece(piece, event, force);
     }
 
+    // Unbinds all events.
+    // Important for document-wide events like scroll and mousemove.
     export function destroy() {
         return chessground.destroy();
     }
