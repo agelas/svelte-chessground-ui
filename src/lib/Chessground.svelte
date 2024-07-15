@@ -2,7 +2,8 @@
 	import { Chessground } from 'chessground';
 	import type { Api } from 'chessground/api';
 	import type { Config } from 'chessground/config';
-	import type { Key } from 'chessground/types';
+	import type { Key, PiecesDiff, Piece, Drop, NumberPair, MouchEvent } from 'chessground/types';
+    import type { DrawShape } from 'chessground/draw';
 	import { onMount } from 'svelte';
 
 	export let className: string = 'cg-default-style';
@@ -27,7 +28,7 @@
 	let container: HTMLDivElement;
 
 	// Chessground API instance.
-	let chessground: Api | undefined;
+	let chessground: Api;
 
 	/**
 	 * Initializes the Chessground instance when the component mounts and
@@ -84,4 +85,93 @@
     $: if (addDimensionsCssVarsTo) setConfig({ addDimensionsCssVarsTo })
     $: if (blockTouchScroll) setConfig({ blockTouchScroll })
     $: if (config) setConfig( config )
+
+    /**
+     * Helper methods that make use of native Chessground functions.
+    */
+
+    export function set(config: Config) {
+        chessground.set(config);
+    }
+
+    export function getState() {
+        return chessground.state;
+    }
+
+    export function getFen() {
+        return chessground.getFen();
+    }
+
+    export function toggleOrientation() {
+        return chessground.toggleOrientation();
+    }
+
+    export function move( orig: Key, dest: Key) {
+        return chessground.move(orig, dest);
+    }
+
+    export function setPieces( pieces: PiecesDiff ) {
+        return chessground.setPieces(pieces);
+    }
+
+    export function selectSquare(key: Key, force?: boolean) {
+        return chessground.selectSquare(key, force);
+    }
+
+    export function newPiece(piece: Piece, key: Key) {
+        return chessground.newPiece(piece, key);
+    }
+
+    export function playPremove() {
+        return chessground.playPremove();
+    }
+
+    export function cancelPremove() {
+        chessground.cancelPremove();
+    }
+
+    export function playPredrop(validate: (drop: Drop) => boolean): boolean {
+        return chessground.playPredrop(validate)
+    }
+
+    export function cancelPredrop() {
+        chessground.cancelPredrop();
+    }
+
+    export function cancelMove() {
+        chessground.cancelMove();
+    }
+
+    export function stop() {
+        chessground.stop();
+    }
+
+    export function explode(keys: Key[]) {
+        chessground.explode(keys);
+    }
+
+    export function setShapes(shapes: DrawShape[]) {
+        chessground.setShapes(shapes);
+    }
+
+    export function setAutoShapes(shapes: DrawShape[]) {
+        chessground.setAutoShapes(shapes);
+    }
+
+    export function getKeyAtDomPos(pos: NumberPair) {
+        return chessground.getKeyAtDomPos(pos)
+    }
+
+    export function redrawAll() {
+        return chessground.redrawAll();
+    }
+
+    // type MouchEvent = Event & Partial<MouseEvent & TouchEvent> lol
+    export function dragNewPiece(piece: Piece, event: MouchEvent, force?: boolean) {
+        chessground.dragNewPiece(piece, event, force);
+    }
+
+    export function destroy() {
+        return chessground.destroy();
+    }
 </script>
