@@ -1,5 +1,5 @@
 {
-	"name": "svelte-chess-ui",
+	"name": "svelte-chessground-ui",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",
