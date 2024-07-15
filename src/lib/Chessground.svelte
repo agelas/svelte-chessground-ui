@@ -175,3 +175,5 @@
         return chessground.destroy();
     }
 </script>
+
+<div class="cg-wrap {className}" bind:this={container}></div>
