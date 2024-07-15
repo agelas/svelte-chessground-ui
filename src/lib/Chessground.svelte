@@ -229,6 +229,10 @@
 		user-select: none;
 		line-height: 0;
 		background-size: cover;
+		/**
+        * Blue board default
+        */
+		background-image: url('https://github.com/lichess-org/lila/blob/master/public/images/board/svg/blue.svg?raw=true');
 	}
 
 	.cg-wrap.manipulable cg-board {
@@ -426,5 +430,45 @@
 
 	.cg-wrap coords.squares.rank8 {
 		transform: translateX(700%);
+	}
+
+	/**
+    * Piece svgs from the Lichess alpha piece set.
+    */
+	.cg-wrap piece.white.pawn {
+		background-image: url('https://github.com/lichess-org/lila/blob/5b25013539f22843e3eedd41f8413fdccaff1b7c/public/piece/alpha/wP.svg?raw=true');
+	}
+	.cg-wrap piece.black.pawn {
+		background-image: url('https://github.com/lichess-org/lila/blob/5b25013539f22843e3eedd41f8413fdccaff1b7c/public/piece/alpha/bP.svg?raw=true');
+	}
+	.cg-wrap piece.white.rook {
+		background-image: url('https://github.com/lichess-org/lila/blob/5b25013539f22843e3eedd41f8413fdccaff1b7c/public/piece/alpha/wR.svg?raw=true');
+	}
+	.cg-wrap piece.black.rook {
+		background-image: url('https://github.com/lichess-org/lila/blob/5b25013539f22843e3eedd41f8413fdccaff1b7c/public/piece/alpha/bR.svg?raw=true');
+	}
+	.cg-wrap piece.white.bishop {
+		background-image: url('https://github.com/lichess-org/lila/blob/5b25013539f22843e3eedd41f8413fdccaff1b7c/public/piece/alpha/wB.svg?raw=true');
+	}
+	.cg-wrap piece.black.bishop {
+		background-image: url('https://github.com/lichess-org/lila/blob/5b25013539f22843e3eedd41f8413fdccaff1b7c/public/piece/alpha/bB.svg?raw=true');
+	}
+	.cg-wrap piece.white.knight {
+		background-image: url('https://github.com/lichess-org/lila/blob/5b25013539f22843e3eedd41f8413fdccaff1b7c/public/piece/alpha/wN.svg?raw=true');
+	}
+	.cg-wrap piece.black.knight {
+		background-image: url('https://github.com/lichess-org/lila/blob/5b25013539f22843e3eedd41f8413fdccaff1b7c/public/piece/alpha/bN.svg?raw=true');
+	}
+	.cg-wrap piece.white.queen {
+		background-image: url('https://github.com/lichess-org/lila/blob/5b25013539f22843e3eedd41f8413fdccaff1b7c/public/piece/alpha/wQ.svg?raw=true');
+	}
+	.cg-wrap piece.black.queen {
+		background-image: url('https://github.com/lichess-org/lila/blob/5b25013539f22843e3eedd41f8413fdccaff1b7c/public/piece/alpha/bQ.svg?raw=true');
+	}
+	.cg-wrap piece.white.king {
+		background-image: url('https://github.com/lichess-org/lila/blob/5b25013539f22843e3eedd41f8413fdccaff1b7c/public/piece/alpha/wK.svg?raw=true');
+	}
+	.cg-wrap piece.black.king {
+		background-image: url('https://github.com/lichess-org/lila/blob/5b25013539f22843e3eedd41f8413fdccaff1b7c/public/piece/alpha/bK.svg?raw=true');
 	}
 </style>
