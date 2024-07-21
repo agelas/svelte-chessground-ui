@@ -1,5 +1,5 @@
 # Svelte Chessground UI
-Yet another Svelte chessboard component. Svelte-Chessground-UI is a wrapper around [chessground](https://github.com/lichess-org/chessground), the open source chess UI used by Lichess. This package is compatible with projects that use **^4.0.0** versions of Svelte.
+Yet another Svelte chessboard component. Svelte-Chessground-UI is a wrapper around [chessground](https://github.com/lichess-org/chessground), the open source chess UI used by Lichess. This package is compatible with projects that use **^4.0.0** versions of Svelte. 
 
 ## Usage
 To install: \
@@ -13,4 +13,29 @@ To display the default chessboard:
 
 <Chessground />
 ```
-If using a `ChessgroundUnstyled` instance, link your component with a `styles.css` or add your own styling with `<script>`. You will probably have to make the styles global like what was done here.
+
+### Styling
+
+Chessground can be completely restyled through CSS. The component imports default stylesheets. To apply your own, you have two options:
+
+1. Override specific CSS commands with a scoped `:global` and `!important`:
+```typescript
+<div class="override_background">
+    <Chessground />
+</div>
+<style>
+    div.override_background :global(.cg-wrap cg-board) {
+        background-image:url("/my-board.jpg") !important; /* replace chessboard image */
+    }
+</style>
+```
+2. Apply your own full chessground stylesheet instead of the defaults by setting the `class` prop and importing your own stylesheet.
+By changing the class name from the default, none of the default stylesheets will apply, not even the piece SVGs. Additionally, you can use the provided `ChessgroundUnstyled` component, which is completely unstyled. If using a `ChessgroundUnstyled` instance, link your component with a `styles.css` or add your own styling with `<script>`. You will probably have to make the styles global like what was done here.
+```typescript
+<script>
+    import {ChessgroundUnstyled} from 'svelte-chessground';
+    import '$lib/my-chessboard.css';
+</script>
+<ChessgroundUnstyled class="my-chessboard" />
+```
+You can get an idea of both approaches in the [original custom styles examples](https://github.com/gtim/svelte-chessground-examples/blob/main/src/routes/style/%2Bpage.svelte).
