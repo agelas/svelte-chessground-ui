@@ -9,6 +9,7 @@
 	],
 	"license": "GPL-3.0",
 	"version": "1.0.0",
+	"main": "./dist/index.js",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
