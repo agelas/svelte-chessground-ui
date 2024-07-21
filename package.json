@@ -1,6 +1,14 @@
 {
 	"name": "svelte-chessground-ui",
-	"version": "0.0.1",
+	"description": "A Svelte wrapper for the full-featured Chessground chess UI.",
+	"keywords": [
+		"chess",
+		"svelte",
+		"chessground",
+		"chessboard"
+	],
+	"license": "GPL-3.0",
+	"version": "1.0.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
