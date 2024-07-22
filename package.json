@@ -8,7 +8,9 @@
 		"chessboard"
 	],
 	"license": "GPL-3.0",
-	"version": "1.0.0",
+	"version": "1.0.1",
+	"homepage": "https://github.com/agelas/svelte-chessground-ui#",
+	"bugs": "https://github.com/agelas/svelte-chessground-ui/issues",
 	"main": "./dist/index.js",
 	"scripts": {
 		"dev": "vite dev",
